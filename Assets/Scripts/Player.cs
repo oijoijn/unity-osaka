@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float JumpForce = 15f;
     public LayerMask GroundLayer; // メソッド外に移動
     private Rigidbody2D rb;
-
+    public int Money = 0;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,11 +42,31 @@ public class Player : MonoBehaviour
         BoxCollider2D c = GetComponent<BoxCollider2D>();
         return Physics2D.BoxCast(c.bounds.center, c.bounds.size, 0f, Vector2.down, .1f, GroundLayer);
     }
+    // add
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("InstaDeath"))
+        //コード簡略化のためにobjを追加
+        GameObject obj = collision.gameObject;
+
+        //InstaDeath
+        if (obj.CompareTag("InstaDeath"))
         {
             SceneManager.LoadScene("SampleScene");
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //コード簡略化のためにobjを追加
+        GameObject obj = collision.gameObject;
+
+        //Collectable
+        if (obj.GetComponent<Collectable>() != null)
+        {
+            if (obj.GetComponent<Collectable>().ID == "money")
+            {
+                Money++;
+                GameObject.Destroy(obj);
+            }
         }
     }
 }
