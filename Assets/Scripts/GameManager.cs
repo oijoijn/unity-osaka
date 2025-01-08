@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro; // TextMeshProを使うために必要な名前空間
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
@@ -21,5 +23,16 @@ public class GameManager : MonoBehaviour
 
         // セミコロンを追加
         MoneyText.text = ":" + PlayerObj.Money;
+    }
+    public void RetryGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainScene"); // プレイヤーのシーン名に置き換えてください
+    }
+
+    public void GoToTitle()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("TitleScene"); // タイトルシーン名に置き換えてください
     }
 }
